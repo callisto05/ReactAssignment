@@ -1,25 +1,58 @@
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import UserInput from './UserInput/UserInput';
+import UserOutput from './UserOutput/UserOutput';
 import './App.css';
+import { render } from '@testing-library/react';
 
-function App() {
+class App extends Component {
+
+
+
+  state = {
+    user: [
+      { userName: 'Ron' },
+      { userName: 'Elon' }
+  ]
+  }
+  
+  switchNameHandler = (event) => {
+    this.setState({
+      user: [
+        { userName: 'Rony' },
+        { userName: event.target.value }
+      ]
+    })
+  };
+
+  render() {
+    const style = {
+      border: '1px solid #eee',
+      padding: '8px',
+      cursor: 'pointer',
+      width: '60%',
+      margin: '16px auto',
+      boxShadow: '0 2px 3px #ccc',
+      textAlign: 'center',
+      font: 'inherit'
+    }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <p style={style}>Good Morning!</p>
+      <UserInput
+        name = {this.state.user[1].userName}
+        changeName = {this.switchNameHandler}
+      ></UserInput>
+      <br />
+      <UserOutput       
+        name={this.state.user[0].userName}
+      ></UserOutput>
+
+      <UserOutput
+        name = {this.state.user[1].userName}
+      ></UserOutput>
     </div>
   );
+}
 }
 
 export default App;
